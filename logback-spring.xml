@@ -1,0 +1,142 @@
+<configuration scan="true" scanPeriod="1 seconds">
+    <!--日志文件前缀，即应用名称 -->
+    <property name="logfile.prefix" value="输入"/>
+    <!--日志路径，可写相对路径，也可写绝对路径 -->
+    <property name="log.path" value="输入"/>
+    <!-- 日志输出格式 -->
+    <property name="log.console.pattern"
+                  value="%d{yyyy-MM-dd HH:mm:ss} [%green(%level)] [%cyan(%10file):%boldMagenta(%line)] %msg%n"/>
+    <property name="log.file.pattern"
+              value="%d{yyyy-MM-dd HH:mm:ss} [%level] [%thread] %logger{40} [%10file:%line] : %msg%n"/>
+
+    <!-- 控制台输出日志 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.console.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 文件输出日志， 滚动（时间/文件大小）输出策略 -->
+    <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录debug级别的日志 -->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>DEBUG</level>-->
+<!--            <OnMismatch>DENY</OnMismatch>-->
+<!--            <OnMatch>ACCEPT</OnMatch>-->
+<!--        </filter>-->
+        <!-- 日志文件路径及文件名 -->
+        <File>${log.path}/detail/${logfile.prefix}_detail.log</File>
+        <!-- 日志记录器的滚动策略，按日期记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 按日期滚动 -->
+            <fileNamePattern>${log.path}/detail/${logfile.prefix}_detail_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 每个日志文件到10mb的时候开始切分，最多保留30天，但最大到20GB，哪怕没到30天也要删除多余的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成5KB看效果 -->
+            <maxFileSize>10MB</maxFileSize>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.file.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录debug级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <!-- 日志文件路径及文件名 -->
+        <File>${log.path}/info/${logfile.prefix}_info.log</File>
+        <!-- 日志记录器的滚动策略，按日期记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 按日期滚动 -->
+            <fileNamePattern>${log.path}/info/${logfile.prefix}_info_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 每个日志文件到10mb的时候开始切分，最多保留30天，但最大到20GB，哪怕没到30天也要删除多余的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成5KB看效果 -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.file.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录debug级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <!-- 日志文件路径及文件名 -->
+        <File>${log.path}/error/${logfile.prefix}_error.log</File>
+        <!-- 日志记录器的滚动策略，按日期记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 按日期滚动 -->
+            <fileNamePattern>${log.path}/error/${logfile.prefix}_error_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 每个日志文件到10mb的时候开始切分，最多保留30天，但最大到20GB，哪怕没到30天也要删除多余的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成5KB看效果 -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.file.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 过滤器，只记录debug级别的日志 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <OnMismatch>DENY</OnMismatch>
+            <OnMatch>ACCEPT</OnMatch>
+        </filter>
+        <!-- 日志文件路径及文件名 -->
+        <File>${log.path}/warn/${logfile.prefix}_warn.log</File>
+        <!-- 日志记录器的滚动策略，按日期记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志保留天数 -->
+            <maxHistory>30</maxHistory>
+            <!-- 按日期滚动 -->
+            <fileNamePattern>${log.path}/warn/${logfile.prefix}_warn_%d{yyyy-MM-dd}_%i.log</fileNamePattern>
+            <!-- 每个日志文件到10mb的时候开始切分，最多保留30天，但最大到20GB，哪怕没到30天也要删除多余的日志 -->
+            <totalSizeCap>1GB</totalSizeCap>
+            <!-- maxFileSize:这是活动文件的大小，默认值是10MB，测试时可改成5KB看效果 -->
+            <maxFileSize>10MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.file.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 日志级别，不向上级传递日志内容，日志按appender-ref输出 -->
+    <!-- 此处对某个具体的类进行配置输出进行设置，由于设置了WARN级别，additivity为true，
+    而且关联STDOUT的appender，因此此类的>=WARN的日志会输出到控制台。同时会把日志上传到父级，即root。
+    若root也有配置STDOUT的输出的话，会发现此日志在控制台输出两次。若additivity为false，则不会。-->
+    <logger name="org.van" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFO"/>
+    </logger>
+
+    <!-- 日志输出 本地测试只需要STDOUT，上线可全打开或者按需打开 -->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="ALL"/>
+        <appender-ref ref="ERROR"/>
+<!--        <appender-ref ref="WARN"/>-->
+    </root>
+</configuration>
